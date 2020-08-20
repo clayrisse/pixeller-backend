@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const orderDetailsSchema = new Schema({
-    orderNumber: Number,
+    orderNumber: String,
     buyer: {type: Schema.Types.ObjectId, ref: 'User'},
     items: [{type: Schema.Types.ObjectId, ref: 'SellingPic'}],
-    shippingAddress: { type: String, default:"", require},
-    shippingName: { type: String, default:"", require},
-    shippingPhoneNum: { type: String, default:"", require},
+    shippingAddress: { type: String, required: true},
+    shippingName: { type: String, required: true},
+    shippingPhoneNum: { type: String, required: true},
     dateOfOrder: Date,
-    paying pethod: { type: String, enum: ['Paypal', 'ApplePay', 'Master Card', 'Visa'] },
-    Order Summary: [{
+    payingPethod: { type: String, enum: ['Paypal', 'ApplePay', 'MasterCard', 'Visa'] },
+    orderSummary: [{
         itemsSubtotal:{type: Number},
         shippingCost:{type: Number},
         totalBeforeTax: {type: Number},

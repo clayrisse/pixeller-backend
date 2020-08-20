@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const sellingPicSchema = new Schema({
-    picture: { type: String, default: '/images/icon-userdefault.png' },
+    picture: { type: String, required: true },
     title: String,
     formats: { type: String, enum: ['3x5', '2x1', '2x3'] },
     tags: [{ type: String }],
@@ -14,9 +14,14 @@ const sellingPicSchema = new Schema({
     comments: [{
         review: String,
         creator: { type: Schema.Types.ObjectId, ref: 'User' },
-        rating: { type: Number, min: 1, max: 5 }}],
-    soldPrints: [{ type: Schema.Types.ObjectId, ref: 'User' 
-    }]
+        rating: { type: Number, min: 1, max: 5 }
+    }],
+    soldPrints: [
+        {
+            buyer:{ type: Schema.Types.ObjectId, ref: 'User' }, 
+            quantity: Number
+        }
+    ]
 
 
 });
