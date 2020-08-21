@@ -10,11 +10,14 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const cors = require("cors");
 
-const auth = require("./routes/auth");
+const auth = require('./routes/auth');
+const userRouter = require('./routes/user');
+const picRouter = require('./routes/pic');
+
 
 // MONGOOSE CONNECTION
 mongoose
-  .connect("mongodb://localhost:27017/backend-server", {
+  .connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
     keepAlive: true,
     useNewUrlParser: true,
@@ -65,6 +68,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTER MIDDLEWARE
 app.use("/auth", auth);
+app.use("/user", userRouter);
+app.use("/pic", picRouter);
 
 // ERROR HANDLING
 // catch 404 and forward to error handler

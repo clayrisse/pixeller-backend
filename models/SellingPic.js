@@ -18,7 +18,7 @@ const sellingPicSchema = new Schema({
     }],
     soldPrints: [
         {
-            buyer:{ type: Schema.Types.ObjectId, ref: 'User' }, 
+            buyer:[{ type: Schema.Types.ObjectId, ref: 'User' }], 
             quantity: Number
         }
     ]
@@ -29,3 +29,11 @@ const sellingPicSchema = new Schema({
 const SellingPic = mongoose.model("SellingPic", sellingPicSchema);
 
 module.exports = SellingPic;
+
+
+// picture, title, formats, tags, description, price, artistInfo, maxPrints, date, soldPrints, comments: [{
+//         review: String,
+//         creator: { type: Schema.Types.ObjectId, ref: 'User' },
+//         rating: { type: Number, min: 1, max: 5 }
+//     }],
+//     : 
