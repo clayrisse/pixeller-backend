@@ -16,12 +16,6 @@ const {
   } = require("../helpers/middlewares");
 
 
-
-
-
-
-
-
 userRouter.put('/', isLoggedIn(), (req, res, next) => {
     
     const { username, email, password} = req.body;

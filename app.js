@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+// MONGODB_URI=mongodb+srv://pixeller:4645kKEPWFeDZNmi@cluster0.kzo1e.mongodb.net/pixellerDB?retryWrites=true&w=majority
+
+
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");

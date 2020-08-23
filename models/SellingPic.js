@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
 
 const sellingPicSchema = new Schema({
-    picture: { type: String, required: true },
+    // picture: { type: String, required: true },
     title: String,
     formats: { type: String, enum: ['3x5', '2x1', '2x3'] },
     tags: [{ type: String }],
     description: String,
     price: Number,
-    artistInfo: {type: Schema.Types.ObjectId, ref: 'User.sellerName' },
+    // artistInfo: {type: Schema.Types.ObjectId, ref: 'User' },
     maxPrints: Number,
     date: Date,
     comments: [{
