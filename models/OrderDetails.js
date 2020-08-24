@@ -24,3 +24,6 @@ const orderDetailsSchema = new Schema({
 const OrderDetails = mongoose.model("OrderDetails", orderDetailsSchema);
 
 module.exports = SellInfo;
+
+
+//borrar esto
