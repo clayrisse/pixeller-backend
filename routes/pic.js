@@ -16,6 +16,14 @@ const User = require('./../models/User');
 const SellingPic = require('./../models/SellingPic');
 
 
+picRouter.get('/list', (req, res, next) => {
+    SellingPic
+    .find()
+    .then((data) => res.json(data).status(200))
+    .catch(error => console.log(error));
+})
+
+
 
 picRouter.post('/create', isLoggedIn(), parser.single('picture'),(req, res, next) => {
     

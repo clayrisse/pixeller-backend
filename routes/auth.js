@@ -24,6 +24,7 @@ router.post(
     const { username, email, password } = req.body;
 
     try {
+      console.log("email")
       // chequea si el username ya existe en la BD
       const emailExists = await User.findOne({ email }, "email");
       // si el usuario ya existe, pasa el error a middleware error usando next()
