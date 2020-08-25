@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 // MONGODB_URI=mongodb+srv://pixeller:4645kKEPWFeDZNmi@cluster0.kzo1e.mongodb.net/pixellerDB?retryWrites=true&w=majority
-
+// MONGODB_URI=mongodb://localhost:27017/backend-server
 
 const express = require("express");
 const path = require("path");
@@ -35,7 +35,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.PUBLIC_DOMAIN],
+    origin: ["http://localhost:3000", "https://pixeller.web.app"],
   })
 );
 // app.use((req, res, next) => {

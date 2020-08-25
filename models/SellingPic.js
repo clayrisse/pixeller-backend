@@ -31,7 +31,7 @@ const SellingPic = mongoose.model("SellingPic", sellingPicSchema);
 module.exports = SellingPic;
 
 
-// picture, title, formats, tags, description, price, artistInfo, maxPrints, date, soldPrints, comments: [{
+// picture, title, formats, tags, description, price, maxPrints, date, soldPrints, comments, artistInfo, [{
 //         review: String,
 //         creator: { type: Schema.Types.ObjectId, ref: 'User' },
 //         rating: { type: Number, min: 1, max: 5 }

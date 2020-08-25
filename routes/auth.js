@@ -51,10 +51,10 @@ router.post(
 // chequea que el usuario no esté logueado usando la función helper (chequea si existe req.session.currentUser)
 // revisa que el username y el password se estén enviando usando la función helper
 router.post("/login", isNotLoggedIn(), validationLoggin(), async (req, res, next) => {
-      const { username, password } = req.body;
+      const { email, password } = req.body;
       try {
         // revisa si el usuario existe en la BD
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ email });
         // si el usuario no existe, pasa el error al middleware error usando next()
         if (!user) {
           next(createError(404));

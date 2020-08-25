@@ -16,9 +16,19 @@ const {
   } = require("../helpers/middlewares");
 
 
+userRouter.get('/', isLoggedIn(), (req, res, next) => {
+    User.findById(req.session.currentUser._id)
+    .then ((user) => {
+        req.session.currentUser = user;
+            res.json(user)
+    })
+    .catch ((error) => console.log(error))
+    
+})
+
 userRouter.put('/', isLoggedIn(), (req, res, next) => {
     
-    const { username, email, password} = req.body;
+    const { username, email, password, lastName, address, phoneNum, seller, sellerAvatar, sellingPic, sellerArtistName, sellerInfo, sellerContact} = req.body;
    
 
     const salt = bcrypt.genSaltSync(saltRounds);
@@ -27,7 +37,7 @@ userRouter.put('/', isLoggedIn(), (req, res, next) => {
     User
         .findByIdAndUpdate(
             req.session.currentUser._id ,
-            { $set: { username, email, password: hashedPassword} },
+            { $set: { username, email, password: hashedPassword, lastName, address, phoneNum, seller, sellerAvatar, sellingPic, sellerArtistName, sellerInfo, sellerContac} },
             { new: true }
         )
         .then((userEDit) => {
