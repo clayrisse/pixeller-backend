@@ -37,7 +37,7 @@ userRouter.put('/', isLoggedIn(), (req, res, next) => {
     User
         .findByIdAndUpdate(
             req.session.currentUser._id ,
-            { $set: { username, email, password: hashedPassword, lastName, address, phoneNum, seller, sellerAvatar, sellingPic, sellerArtistName, sellerInfo, sellerContac} },
+            { $set: { username, email, password: hashedPassword, lastName, address, phoneNum, seller, sellerAvatar, sellingPic, sellerArtistName, sellerInfo, sellerContact} },
             { new: true }
         )
         .then((userEDit) => {

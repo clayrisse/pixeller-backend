@@ -35,7 +35,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "https://pixeller.web.app"],
+    origin: ["http://localhost:3000", "https://new-pixeller.web.app"],
   })
 );
 // app.use((req, res, next) => {
