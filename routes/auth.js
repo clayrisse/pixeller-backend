@@ -12,7 +12,17 @@ const {
   validationLoggin,
 } = require("../helpers/middlewares");
 
+const uploader =  require ("./../config/cloudinary.js")
+
+
+
+
+
+
+
+
 //  POST '/signup'
+
 
 router.post(
   "/signup",
@@ -33,7 +43,7 @@ router.post(
         // en caso contratio, si el usuario no existe, hace hash del password y crea un nuevo usuario en la BD
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashPass = bcrypt.hashSync(password, salt);
-        const newUser = await User.create({ email, username, password: hashPass });
+        const newUser = await User.create({ email, username, password: hashPass, sellingPic:[],  });
         // luego asignamos el nuevo documento user a req.session.currentUser y luego enviamos la respuesta en json
         req.session.currentUser = newUser;
         res
@@ -109,9 +119,6 @@ router.get("/me", isLoggedIn(), (req, res, next) => {
     req.session.currentUser.password = "*";
     res.json(req.session.currentUser);
   });
-
-
-
 
   
   module.exports = router;

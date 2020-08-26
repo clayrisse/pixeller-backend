@@ -18,6 +18,7 @@ const {
 
 userRouter.get('/', isLoggedIn(), (req, res, next) => {
     User.findById(req.session.currentUser._id)
+    .populate("sellingPic buyCheckout buyLater")
     .then ((user) => {
         req.session.currentUser = user;
             res.json(user)
@@ -28,7 +29,7 @@ userRouter.get('/', isLoggedIn(), (req, res, next) => {
 
 userRouter.put('/', isLoggedIn(), (req, res, next) => {
     
-    const { username, email, password, lastName, address, phoneNum, seller, sellerAvatar, sellingPic, sellerArtistName, sellerInfo, sellerContact} = req.body;
+    const { username, email, password, lastName, address, phoneNum, seller, sellerAvatar, sellerArtistName, sellerInfo, sellerContact} = req.body;
    
 
     const salt = bcrypt.genSaltSync(saltRounds);
@@ -37,7 +38,7 @@ userRouter.put('/', isLoggedIn(), (req, res, next) => {
     User
         .findByIdAndUpdate(
             req.session.currentUser._id ,
-            { $set: { username, email, password: hashedPassword, lastName, address, phoneNum, seller, sellerAvatar, sellingPic, sellerArtistName, sellerInfo, sellerContact} },
+            { $set: { username, email, password: hashedPassword, lastName, address, phoneNum, seller, sellerAvatar, sellerArtistName, sellerInfo, sellerContact} },
             { new: true }
         )
         .then((userEDit) => {
@@ -51,7 +52,7 @@ userRouter.put('/', isLoggedIn(), (req, res, next) => {
         })
 });
 
-userRouter.delete('/', (req, res, next) => {
+userRouter.delete('/', isLoggedIn(), (req, res, next) => {
 
     User
         .findByIdAndDelete(req.session.currentUser._id)
@@ -61,7 +62,7 @@ userRouter.delete('/', (req, res, next) => {
                 .status(204) //  No Content
                 .send();
               return;
-              });
+            });
         })
         .catch(error => {
         console.log(error);
