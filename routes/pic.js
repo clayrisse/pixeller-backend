@@ -10,7 +10,7 @@ const {
     validationLoggin,
   } = require("../helpers/middlewares");
 
-const parser = require('./../config/cloudinary');
+const uploader = require('./../config/cloudinary');
 
 const User = require('./../models/User');
 const SellingPic = require('./../models/SellingPic');
@@ -23,37 +23,31 @@ picRouter.get('/list', (req, res, next) => {
     .catch(error => console.log(error));
 })
 
-picRouter.get('/:id', (req, res, next) => {    ///////////////////////chequear esta ruta con UROS
+picRouter.get('/:id', (req, res, next) => { 
     SellingPic
-    .findById()
-    .then((data) => res.json(data).status(200))
+    .findById(req.params.id)
+    .then((pic) => res.json(pic).status(200))
     .catch(error => console.log(error));
 })
 
 
-// picRouter.post("/upload", uploader.single("photo"), (req, res, next) => {
-//     // console.log('file is: ', req.file)
-//     if (!req.file) {
-//       next(new Error("No file uploaded!"));
-//       return;
-//     }
-//     // get secure_url from the file object and save it in the
-//     // variable 'secure_url', but this can be any name, just make sure you remember to use the same in frontend
-//     res.json({ secure_url: req.file.secure_url });
-//   });
-
-
-picRouter.post('/create', isLoggedIn(), parser.single('picture'),(req, res, next) => {
-    
-    const {  title, formats, tags, description, price, maxPrints, date, artistInfo } = req.body;
-    const currUser = req.session.currentUser._id;
-    let sellingPic_url;
-    if (req.file){
-        sellingPic_url = req.file.secure_url;
+picRouter.post("/upload", uploader.single("photo"), (req, res, next) => {
+    if (!req.file) {
+      next(new Error("No file uploaded!"));
+      return;
     }
+    res.json({ secure_url: req.file.secure_url });
+  });
+
+
+picRouter.post('/create', isLoggedIn(), (req, res, next) => {
+    
+    const {  picture, title, formats, tags, description, price, maxPrints, date, artistInfo } = req.body;
+    const currUser = req.session.currentUser._id;
+    
 
     SellingPic
-        .create({ title, formats, tags, description, price, maxPrints, date, artistInfo, picture: sellingPic_url })
+        .create({ title, formats, tags, description, price, maxPrints, date, artistInfo, picture })
         .then(newCreatePic => {
 
             const picId = newCreatePic._id;
@@ -81,12 +75,12 @@ picRouter.post('/create', isLoggedIn(), parser.single('picture'),(req, res, next
 
 picRouter.put('/:id', isLoggedIn(), (req, res, next) => {  //tengo que chequiar si isLoggedIn(), ???
     
-    const { title, formats, tags, description, price, maxPrints, artistInfo, date, picture: imageAct_url } = req.body;
+    const { title, formats, tags, description, price, maxPrints, artistInfo, date, picture } = req.body;
     //console.log(req.body)
     SellingPic
         .findByIdAndUpdate(
             req.params.id,
-            { $set: { title, formats, tags, description, price, maxPrints, artistInfo, date, picture: imageAct_url} },
+            { $set: { title, formats, tags, description, price, maxPrints, artistInfo, date, picture} },
             { new: true }
         )
         .then( (picUpdate) => {

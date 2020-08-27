@@ -6,7 +6,7 @@ const userSchema = new Schema({
     username: { type: String, required: true },
     lastName: { type: String, default:"" }, //how do I do to have this field require for seller and not a buyer
     address: { type: String, default:"" }, 
-    phoneNum: { type: Number, default: 0 },
+    phoneNum: { type: Number, default: null },
     email: {type: String, match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, required: true, unique: true },
     password: { type: String, minlength: 6, required: true },
 
