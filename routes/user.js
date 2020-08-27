@@ -20,6 +20,7 @@ userRouter.get('/', isLoggedIn(), (req, res, next) => {
     User.findById(req.session.currentUser._id)
     .populate("sellingPic buyCheckout buyLater")
     .then ((user) => {
+        user.password=""
         req.session.currentUser = user;
             res.json(user)
     })
@@ -29,16 +30,16 @@ userRouter.get('/', isLoggedIn(), (req, res, next) => {
 
 userRouter.put('/', isLoggedIn(), (req, res, next) => {
     
-    const { username, email, password, lastName, address, phoneNum, seller, sellerAvatar, sellerArtistName, sellerInfo, sellerContact} = req.body;
+    const { username, email, lastName, address, phoneNum, seller, sellerAvatar, sellerArtistName, sellerInfo, sellerContact} = req.body;
    
 
-    const salt = bcrypt.genSaltSync(saltRounds);
-    const hashedPassword = bcrypt.hashSync(password, salt);
+    // const salt = bcrypt.genSaltSync(saltRounds);
+    // const hashedPassword = bcrypt.hashSync(password, salt);
     
     User
         .findByIdAndUpdate(
             req.session.currentUser._id ,
-            { $set: { username, email, password: hashedPassword, lastName, address, phoneNum, seller, sellerAvatar, sellerArtistName, sellerInfo, sellerContact} },
+            { $set: { username, email, lastName, address, phoneNum, seller, sellerAvatar, sellerArtistName, sellerInfo, sellerContact} },
             { new: true }
         )
         .then((userEDit) => {
