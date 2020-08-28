@@ -154,25 +154,30 @@ const userSchema = new Schema({
 });
 ```
 
-**## API Endpoints (back-end routes)**
+
+
+**## Front-end and Components **
 
 
 
-
-
-
-
-**## Front-end**
-
-
-
-\- 
-
-
-
-**## Components**
-
-
+| Path             | Component        |
+| ---------------- | ---------------- |
+| /                | Home             |
+| /signup          | Signup           |
+| /login           | Login            |
+| /logout          |                  |
+| /user/profile    | Private          |
+| /user/edit       | UserEdit         |
+| /pic/create      | PicCreate        |
+| /pic/edit/:id    | PicEdit          |
+| /pic/detail.:id  | PicDetail        |
+| /profile/car/:id | ListingCar       |
+| /profile/car/:id | ListingCheckout  |
+| /precheckout     | CheckoutItems    |
+| /shipping        | CheckoutShipping |
+| /checkout        | CheckoutTotal    |
+|                  | NavBar           |
+|                  | SearchBar        |
 
 \- 
 
